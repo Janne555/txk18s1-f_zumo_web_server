@@ -1,0 +1,36 @@
+CREATE TABLE gyro (
+    timestamp TIMESTAMP NOT NULL,
+    x INT NOT NULL,
+    y INT NOT NULL,
+    z INT NOT NULL
+);
+
+CREATE TABLE acc (
+    timestamp TIMESTAMP NOT NULL,
+    x INT NOT NULL,
+    y INT NOT NULL,
+    z INT NOT NULL
+);
+
+CREATE TABLE line (
+    timestamp TIMESTAMP NOT NULL,
+    l3 INT NOT NULL,
+    l2 INT NOT NULL,
+    l1 INT NOT NULL,
+    r1 INT NOT NULL,
+    r2 INT NOT NULL,
+    r3 INT NOT NULL
+);
+
+CREATE TABLE motor (
+    timestamp TIMESTAMP NOT NULL,
+    dir_left INT NOT NULL,
+    dir_right INT NOT NULL,
+    speed_left INT NOT NULL,
+    speed_right INT NOT NULL
+);
+
+CREATE TABLE log (
+    timestamp TIMESTAMP NOT NULL,
+    something CHAR[255] NOT NULL
+);
