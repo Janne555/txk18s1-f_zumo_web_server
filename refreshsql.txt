@@ -1,28 +1,29 @@
-drop table gyro;
-drop table line;
-drop table acc;
-drop table motor;
-drop table log;
+#!/bin/bash
+mysql -h localhost -u dbuser -psalis --database zumo -e "drop table gyro;"
+mysql -h localhost -u dbuser -psalis --database zumo -e "drop table line;"
+mysql -h localhost -u dbuser -psalis --database zumo -e "drop table acc;"
+mysql -h localhost -u dbuser -psalis --database zumo -e "drop table motor;"
+mysql -h localhost -u dbuser -psalis --database zumo -e "drop table log;"
 
-CREATE TABLE gyro (
+mysql -h localhost -u dbuser -psalis --database zumo -e "CREATE TABLE gyro (
     id INT NOT NULL AUTO_INCREMENT,
     timestamp TIMESTAMP NOT NULL,
     x INT NOT NULL,
     y INT NOT NULL,
     z INT NOT NULL,
     primary key (id)
-);
+);"
 
-CREATE TABLE acc (
+mysql -h localhost -u dbuser -psalis --database zumo -e "CREATE TABLE acc (
     id INT NOT NULL AUTO_INCREMENT,
     timestamp TIMESTAMP NOT NULL,
     x INT NOT NULL,
     y INT NOT NULL,
     z INT NOT NULL,
     primary key (id)
-);
+);"
 
-CREATE TABLE line (
+mysql -h localhost -u dbuser -psalis --database zumo -e "CREATE TABLE line (
     id INT NOT NULL AUTO_INCREMENT,
     timestamp TIMESTAMP NOT NULL,
     l3 INT NOT NULL,
@@ -32,9 +33,9 @@ CREATE TABLE line (
     r2 INT NOT NULL,
     r3 INT NOT NULL,
     primary key (id)
-);
+);"
 
-CREATE TABLE motor (
+mysql -h localhost -u dbuser -psalis --database zumo -e "CREATE TABLE motor (
     id INT NOT NULL AUTO_INCREMENT,
     timestamp TIMESTAMP NOT NULL,
     dir_left INT NOT NULL,
@@ -42,11 +43,11 @@ CREATE TABLE motor (
     speed_left INT NOT NULL,
     speed_right INT NOT NULL,
     primary key (id)
-);
+);"
 
-CREATE TABLE log (
+mysql -h localhost -u dbuser -psalis --database zumo -e "CREATE TABLE log (
     id INT NOT NULL AUTO_INCREMENT,
     timestamp TIMESTAMP NOT NULL,
     message TEXT NOT NULL,
     primary key (id)
-);
+);"

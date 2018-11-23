@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html>
-<body>
-    <?php
+<?php
+    header('Content-type: application/json');
     $servername = "localhost";
     $username = "dbuser";
     $password = "salis";
@@ -15,7 +13,7 @@
     $type = $_GET["type"];
     switch ($type) {
         case "gyro":
-            $result = $conn->query("SELECT * FROM zumo.gyro");
+            $result = $conn->query("SELECT * FROM zumo.gyro ORDER BY id DESC LIMIT 1");
             $rows = array();
             while ($row = $result->fetch_assoc()) {
                 $rows[] = $row;
@@ -23,15 +21,55 @@
             print json_encode($rows);
             break;
         case "acc":
-            echo "selected accelerometer";
+            $result = $conn->query("SELECT * FROM zumo.acc ORDER BY id DESC LIMIT 1");
+            $rows = array();
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            print json_encode($rows);
             break;
         case "line":
-            echo "selected line sensor";
+            $result = $conn->query("SELECT * FROM zumo.line ORDER BY id DESC LIMIT 1");
+            $rows = array();
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            print json_encode($rows);
+            break;
+        case "log":
+            $result = $conn->query("SELECT * FROM zumo.log ORDER BY id DESC LIMIT 1");
+            $rows = array();
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            print json_encode($rows);
+            break;
+        case "gyro_latest":
+            $result = $conn->query("SELECT * FROM zumo.gyro ORDER BY id DESC LIMIT 15");
+            $rows = array();
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            print json_encode($rows);
+            break;
+        case "acc_latest":
+            $result = $conn->query("SELECT * FROM zumo.acc ORDER BY id DESC LIMIT 15");
+            $rows = array();
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            print json_encode($rows);
+            break;
+        case "line_latest":
+            $result = $conn->query("SELECT * FROM zumo.line ORDER BY id DESC LIMIT 15");
+            $rows = array();
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            print json_encode($rows);
             break;
         default:
             echo "unrecognized";
     }
 
-    ?>
-</body>
-</html>
+?>
