@@ -37,7 +37,7 @@
             print json_encode($rows);
             break;
         case "log":
-            $result = $conn->query("SELECT * FROM zumo.log ORDER BY id DESC LIMIT 1");
+            $result = $conn->query("SELECT * FROM zumo.log ORDER BY id DESC LIMIT 10");
             $rows = array();
             while ($row = $result->fetch_assoc()) {
                 $rows[] = $row;
@@ -61,7 +61,7 @@
             print json_encode($rows);
             break;
         case "line_latest":
-            $result = $conn->query("SELECT * FROM zumo.line ORDER BY id DESC LIMIT 15");
+            $result = $conn->query("SELECT * FROM zumo.line ORDER BY id DESC LIMIT 60");
             $rows = array();
             while ($row = $result->fetch_assoc()) {
                 $rows[] = $row;

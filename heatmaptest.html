@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <style>
+      body, html { margin:0; padding:0; height:100%;}
+      #heatmapContainerWrapper { width:600px; height:600px; position:absolute; }
+      #heatmapContainer { width:100%; height:100%;}
+    </style>
+  </head>
+  <body>
+    <div id="heatmapContainerWrapper">
+      <div id="heatmapContainer">
+
+      </div>
+
+    </div>
+    <script src="heatmap.js"></script>
+    <script>
+      window.onload = function() {
+        // create a heatmap instance
+        var heatmap = h337.create({
+          container: document.getElementById('heatmapContainer'),
+          radius: 75,
+          backgroundColor: 'rgba(0, 0, 58, 0.96)'
+        });
+        var heatmapContainer = document.getElementById('heatmapContainerWrapper');
+        heatmapContainer.onmousemove = heatmapContainer.ontouchmove = function(e) {
+            // we need preventDefault for the touchmove
+            //6170/5714/23617/22931/5355/6165
+            var y = 0;
+
+            var data = {
+                max: 24000,
+                min: 0,
+                data: []
+            }
+
+            var datapoints = [];
+            setInterval(function() {
+                var newData = [
+                    {x: 50, y: y, value: 6170},
+                    {x: 150, y: y, value: 5714},
+                    {x: 250, y: y, value: 23617},
+                    {x: 350, y: y, value: 22931},
+                    {x: 450, y: y, value: 5355},
+                    {x: 550, y: y, value: 6165}
+                ];
+
+                datapoints = [...newData, ...datapoints];
+
+                data.data = datapoints;
+                heatmap.setData(data);
+                y += 50;
+            }, 1000);
+        };
+      };
+    </script>
+  </body>
+</html>
