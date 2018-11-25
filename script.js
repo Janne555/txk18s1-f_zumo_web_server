@@ -1,122 +1,23 @@
-const log_list = document.getElementById("log_list");
-const linereader_display = document.getElementById("line_reader_display");
-const context = linereader_display.getContext("2d");
-var latestLogId = -1;
+var data = [{"id":"905","timestamp":"2018-11-25 13:22:04","x":"10000","y":"-10031","z":"13339"},{"id":"904","timestamp":"2018-11-25 13:22:04","x":"-3427","y":"-5905","z":"15372"},{"id":"903","timestamp":"2018-11-25 13:22:04","x":"-6823","y":"-3099","z":"16062"},{"id":"902","timestamp":"2018-11-25 13:22:04","x":"-7670","y":"-3288","z":"17039"},{"id":"901","timestamp":"2018-11-25 13:22:04","x":"-4358","y":"-2963","z":"16185"},{"id":"900","timestamp":"2018-11-25 13:22:04","x":"1736","y":"-4200","z":"16288"},{"id":"899","timestamp":"2018-11-25 13:22:04","x":"-439","y":"-5004","z":"15830"},{"id":"898","timestamp":"2018-11-25 13:22:04","x":"-463","y":"-5845","z":"16442"},{"id":"897","timestamp":"2018-11-25 13:22:04","x":"-2176","y":"-5618","z":"16035"},{"id":"896","timestamp":"2018-11-25 13:22:04","x":"-2312","y":"-5723","z":"16184"},{"id":"895","timestamp":"2018-11-25 13:22:03","x":"-484","y":"-5010","z":"15511"},{"id":"894","timestamp":"2018-11-25 13:22:03","x":"403","y":"-5134","z":"16675"},{"id":"893","timestamp":"2018-11-25 13:22:03","x":"2286","y":"-4205","z":"15706"},{"id":"892","timestamp":"2018-11-25 13:22:03","x":"5397","y":"-1749","z":"15814"},{"id":"891","timestamp":"2018-11-25 13:22:03","x":"4005","y":"-2400","z":"17225"}];
+data = data.map((a, i) => {
+    return Math.atan(a.y / a.x) * (180 / Math.PI);
+});
 
-var scaleData = (value, min, max, mult) => {
-    return (value / (max - min)) * mult;
-}
+console.log(data);
 
-var scaleRefData = (x) => {
-    return scaleData(x, 0, 24000, 255);
-}
+var acc_display = document.getElementById("acc_display");
+var acc_ctx = acc_display.getContext("2d");
+var center = acc_display.height / 2;
 
-var sclAndInvRefData = (x) => {
-    return Math.round(255 - scaleRefData(x));
-}
 
-var vectorizeRefDatapoint = (x) => {
-    return [sclAndInvRefData(x.l3),
-        sclAndInvRefData(x.l2),
-        sclAndInvRefData(x.l1),
-        sclAndInvRefData(x.r1),
-        sclAndInvRefData(x.r2),
-        sclAndInvRefData(x.r3)
-    ];
-}
-
-var indexVector = (size) => {
-    let s = 1 / size;
-    return [...Array(size).keys()].map(x => {
-        return (s * x).toFixed(3);
-    });
-}
-
-function updateDisplay() {
-    fetch("./connection.php?type=line_latest")
-    .then(
-        function(reply) {
-            return reply.json();
-        }
-    )
-    .then(function (json) {
-        let indexVectorDone = indexVector(12);
-        json.forEach((a, i) => {
-            let grd = context.createLinearGradient(0, 0, 600, 0);
-            //create vector from the datapoint
-            //map the datapoints to rgbstrings
-            //for each of the strings, add a color stop
-            //duplicate each element
-            let vector = vectorizeRefDatapoint(a)
-                .map((b) => {
-                    return "rgb(" + b + "," + b + "," + b + ")";
-            }).reduce((res, current) => {
-                return res.concat([current, current]);
-            }, []);
-
-            vector.forEach((c, i) => {
-                grd.addColorStop(indexVectorDone[i], c);
-            });
-
-            context.fillStyle = grd;
-            let pos = 590 - i * 10;
-            context.fillRect(0, pos, 600, 10);
-        });
-    })
-    .catch(function(error) {
-        console.log(error);
-    });
-}
-
-setInterval(updateDisplay, 1000);
-
-// var indexVectorDone = indexVector(50, 600, 100);
-// console.log(indexVectorDone);
-// data.reverse();
-// data.forEach((a, i) => {
-//     let grd = context.createLinearGradient(0, 0, 600, 0);
-//     //create vector from the datapoint
-//     //map the datapoints to rgbstrings
-//     //for each of the strings 
-//     vectorizeRefDatapoint(a)
-//         .map((b) => {
-//             return "rgb(" + b + "," + b + "," + b + ")";
-//         })
-//         .forEach((c, i) => {
-//             grd.addColorStop(indexVectorDone[i], c);
-//         });
-
-//     context.fillStyle = grd;
-//     let pos = 550 - i * 25;
-//     context.fillRect(0, pos, 600, 25);
-// });
-
-function fetchLog() {
-    fetch("./connection.php?type=log")
-    .then(
-        function(reply) {
-            return reply.json();
-        }
-    )
-    .then(function (json) {
-        updateLog(json);
-    })
-    .catch(function(error) {
-        console.log(error);
-    });
-}
-
-function updateLog(jsonArr) {
-    if (latestLogId != jsonArr[0].id) {
-        for (let i = jsonArr.length - 1; i >= 0; i--) {
-            if (jsonArr[i].id <= latestLogId) {
-                continue;
-            }
-            let li = document.createElement("li");
-            li.innerHTML = jsonArr[i].timestamp.slice(11) + " " + jsonArr[i].message;
-            log_list.prepend(li);
-            latestLogId = jsonArr[i].id;
-        }
-    }
-}
-
+acc_ctx.rotate(-90);
+acc_ctx.beginPath();
+acc_ctx.moveTo(center, center);
+acc_ctx.lineTo(center, 0);
+acc_ctx.stroke();
+acc_ctx.moveTo(center, 0);
+acc_ctx.lineTo(center-10, 10);
+acc_ctx.stroke();
+acc_ctx.moveTo(center, 0);
+acc_ctx.lineTo(center+10, 10);
+acc_ctx.stroke();

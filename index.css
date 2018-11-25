@@ -1,3 +1,18 @@
 canvas {
     border: 1px;
 }
+
+body {
+    display: flex;
+    flex-direction: row;
+}
+
+ul {
+    list-style-type: none;
+    overflow: scroll;
+}
+
+li {
+    margin: 0 0 10 0;
+    white-space: nowrap;
+}
