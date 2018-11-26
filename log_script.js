@@ -8,7 +8,10 @@ function fetchLog() {
             return reply.json();
         }
     )
-    .then(function (json) {
+    .then(function (jsonArr) {
+        if (jsonArr.length == 0) {
+            return;
+        }
         if (latestLogId != jsonArr[0].id) {
             jsonArr.reverse().forEach((a, i) => {
                 if (a.id >= latestLogId) {
