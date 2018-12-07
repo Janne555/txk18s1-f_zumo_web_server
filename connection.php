@@ -61,7 +61,7 @@
             print json_encode($rows);
             break;
         case "line_latest":
-            $result = $conn->query("SELECT * FROM zumo.line ORDER BY id DESC LIMIT 60");
+            $result = $conn->query("SELECT * FROM zumo.line ORDER BY id DESC OFFSET 100 LIMIT 60");
             $rows = array();
             while ($row = $result->fetch_assoc()) {
                 $rows[] = $row;

@@ -1,0 +1,11 @@
+CREATE TABLE `line` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `l3` int(11) NOT NULL,
+  `l2` int(11) NOT NULL,
+  `l1` int(11) NOT NULL,
+  `r1` int(11) NOT NULL,
+  `r2` int(11) NOT NULL,
+  `r3` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+);

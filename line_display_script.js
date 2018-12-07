@@ -1,16 +1,15 @@
 const memoize = (fn) => {
-    return fn;
-    // let cache = {};
-    // return (...args) => {
-    //     let n = args[0];
-    //     if (n in cache) {
-    //         return cache[n];
-    //     } else {
-    //         let result = fn(n);
-    //         cache[n] = result;
-    //         return result;
-    //     }
-    // }
+    let cache = {};
+    return (...args) => {
+        let n = args[0];
+        if (n in cache) {
+            return cache[n];
+        } else {
+            let result = fn(n);
+            cache[n] = result;
+            return result;
+        }
+    }
 }
 
 //get an object of the display element
@@ -19,22 +18,19 @@ const linereader_display = document.getElementById("line_reader_display");
 const context = linereader_display.getContext("2d");
 
 /* converts a value between from one scale to another */
-var scaleData = memoize(
-    (value, min, max, newMin, newMax) => {
+var scaleData = (value, min, max, newMin, newMax) => {
     return (value / (max - min)) * (newMax - newMin);
-});
+};
 
 /* a special conveter for conversion from scale 0->24000 to 0->255 */
-var scaleRefData = memoize(
-    (x) => {
+var scaleRefData = (x) => {
     return scaleData(x, 0, 24000, 0, 255);
-});
+};
 
 /* scales a value using the special converter and inverts it */
-var sclAndInvRefData = memoize(
-    (x) => {
+var sclAndInvRefData = (x) => {
     return Math.round(255 - scaleRefData(x));
-});
+};
 
 /* takes a datapoint, scales its values and returns a vector */
 var vectorizeRefDatapoint = memoize(
