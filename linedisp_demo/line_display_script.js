@@ -1,3 +1,4 @@
+// store the results of commonly used functions and their parameters in a cache
 const memoize = (fn) => {
     let cache = {};
     return (...args) => {
@@ -17,10 +18,12 @@ const linereader_display = document.getElementById("line_reader_display");
 //get context for the display element
 const context = linereader_display.getContext("2d");
 
+//buttons
 const plusB = document.getElementById("plus");
 const minusB = document.getElementById("minus");
 const pauseB = document.getElementById("pause");
 
+//limits
 var lowerLimit = 800;
 var upperLimit = lowerLimit + 60;
 

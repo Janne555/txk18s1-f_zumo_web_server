@@ -15,3 +15,17 @@ li {
     margin: 0 0 10 0;
     white-space: nowrap;
 }
+
+.scanner_img {
+    position: relative;
+}
+
+.button_row {
+    position: absolute;
+    bottom: -25px;
+    left: 25px;
+}
+
+.log_container {
+    position: relative;
+}

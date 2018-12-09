@@ -7,12 +7,21 @@
     <link rel="stylesheet" type="text/css" href="index.css" />
 </head>
 <body>
-    <div>
-        <canvas id="line_reader_display" width="600" height="600"></canvas>
-        <button id="plus">+</button>
-        <button id="pause">||</button>
-        <button id="minus">-</button>
+    <div class="scanner_container">
+        <div class="scanner_img">
+            <canvas id="line_reader_display" width="600" height="600"></canvas>
+            <div class="button_row">
+                <button id="plus">+</button>
+                <button id="pause">||</button>
+                <button id="minus">-</button>
+            </div>
+        </div>
     </div>
+    <div class="log_container">
+        <ul id="log_list"></ul>
+    </div>
+<script src="log_data.js"></script>
+<script src=log_script.js></script>
 <script src="linedata.js"></script>
 <script src=line_display_script.js></script>
 </body>
